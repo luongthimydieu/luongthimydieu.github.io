@@ -1,7 +1,7 @@
 # jinnn.xyz · 个人网站
 
 > **Cute by default, useful by design.**
-> jin 的个人网站 —— 把日常的小麻烦，做成顺手的小工具。
+> jinnn 的个人网站 —— 把日常的小麻烦，做成顺手的小工具。
 
 这是一个**纯静态**的网站：没有构建步骤、没有框架、没有运行时依赖。HTML + CSS + 原生 JS，打开即用，扔到任何静态托管上都能跑。
 
@@ -112,7 +112,7 @@ curl.exe -I https://jinnn.xyz
 
 - **Bodoni Moda**、**Space Grotesk**、**JetBrains Mono**：SIL Open Font License，自托管 woff2
 - **霞鹜文楷 LXGW WenKai**（可选子集，`assets/fonts/lxgw-wenkai-subset.woff2`）：SIL Open Font License
-- 站点内容（文字、项目介绍）© jin；页面的设计与代码可作参考，转载文字请先来信。
+- 站点内容（文字、项目介绍）© jinnn；页面的设计与代码可作参考，转载文字请先来信。
 - 站内所有项目数据来自公开 GitHub 仓库，已按事实口径标注（设计目标 / 作者自测等）。
 
 ---

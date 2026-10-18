@@ -19,7 +19,7 @@ window.JIN = {
   /* 终端逐行内容：type = cmd / out */
   terminal: [
     { type: "cmd", text: "whoami" },
-    { type: "out", text: "jin — 中国矿业大学 · 数据科学与大数据技术" },
+    { type: "out", text: "jinnn — 中国矿业大学 · 数据科学与大数据技术" },
     { type: "cmd", text: "cat now.txt" },
     { type: "out", text: "正在收尾 XXT Copilot v0.1.5" },
     { type: "out", text: "正在给任务栏歌词打补丁" },
