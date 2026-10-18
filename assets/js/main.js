@@ -828,7 +828,9 @@
   }
 
   (function liveStats() {
+    /* 本地 file:// / localhost / 截图模式不请求线上接口，避免无意义的 CORS/限流报错 */
     if (!site.githubUser || shotMode) return;
+    if (location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
     fetchJson("https://api.github.com/users/" + site.githubUser, 4500)
       .then(function (user) {
         if (user && typeof user.public_repos === "number") setLiveText("repos", user.public_repos);
