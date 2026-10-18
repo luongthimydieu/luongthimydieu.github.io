@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>jin · jinnn.xyz — Cute by default, useful by design.</title>
+  <meta name="description" content="jin 的个人网站。中国矿业大学 · 数据科学与大数据技术。做桌面工具、浏览器扩展和一些 AI 小实验：Win11 任务栏歌词、Hello Kitty DSH 皮肤、XXT Copilot……把日常的小麻烦做成顺手的小工具。">
+  <meta name="author" content="jin">
+  <meta name="keywords" content="jin, jinnn.xyz, 个人网站, 中国矿业大学, 数据科学与大数据技术, Hello Kitty, DeepSeek Harness, Win11 任务栏歌词, XXT Copilot, 前端, Python, C++">
+  <meta name="theme-color" content="#fbf6f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#120e12" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="https://jinnn.xyz/">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="jinnn.xyz">
+  <meta property="og:url" content="https://jinnn.xyz/">
+  <meta property="og:title" content="jin · Cute by default, useful by design.">
+  <meta property="og:description" content="把日常的小麻烦，做成顺手的小工具。中国矿业大学 · 数据科学与大数据技术。">
+  <meta property="og:image" content="https://jinnn.xyz/assets/img/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="jin · Cute by default, useful by design.">
+  <meta name="twitter:description" content="把日常的小麻烦，做成顺手的小工具。jinnn.xyz">
+  <meta name="twitter:image" content="https://jinnn.xyz/assets/img/og-cover.png">
+
+  <!-- icons / manifest -->
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/icon-180.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="sitemap" type="application/xml" href="sitemap.xml">
+
+  <!-- fonts (self-hosted, latin subset; chinese falls back to system serif/sans) -->
+  <link rel="preload" href="assets/fonts/bodoni-roman.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/bodoni-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/lxgw-wenkai-subset.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "jin",
+    "alternateName": "luongthimydieu",
+    "url": "https://jinnn.xyz/",
+    "image": "https://jinnn.xyz/assets/img/upload/avatar.jpg",
+    "email": "mailto:wangzhiwen1224@126.com",
+    "description": "中国矿业大学数据科学与大数据技术专业学生，做桌面工具、浏览器扩展与 AI 小实验。",
+    "address": { "@type": "PostalAddress", "addressLocality": "徐州市", "addressRegion": "江苏省", "addressCountry": "CN" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "中国矿业大学" },
+    "sameAs": ["https://github.com/luongthimydieu", "https://cnb.cool/jin.twelve"]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <!-- 颗粒质感 / 光标 / 进度 / 加载 -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span><span class="cursor__label"></span></div>
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <svg class="loader__kitten" viewBox="0 0 64 64" aria-hidden="true">
+        <g class="loader__kitten-face">
+          <path d="M13 27 17 12l12 9h6l12-9 4 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+          <ellipse cx="32" cy="38" rx="20" ry="16.5" fill="currentColor" opacity=".06"/>
+          <ellipse cx="32" cy="38" rx="20" ry="16.5" fill="none" stroke="currentColor" stroke-width="2.4"/>
+          <circle cx="25" cy="37" r="2.4" fill="currentColor"/>
+          <circle cx="39" cy="37" r="2.4" fill="currentColor"/>
+          <path d="M30 42h4l-2 2z" fill="currentColor"/>
+          <path d="M11 40h9M12 45h8M53 40h-9M52 45h-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <g class="loader__bow" transform="translate(20 19) rotate(-16)">
+            <path d="M0 0c-6-6-11-2-9 3 1.4 3.6 6 3.2 9-3z" fill="#ff7fae" stroke="#171114" stroke-width="1.6"/>
+            <path d="M0 0c6-6 11-2 9 3-1.4 3.6-6 3.2-9-3z" fill="#ff7fae" stroke="#171114" stroke-width="1.6"/>
+            <circle cx="0" cy="0" r="2.6" fill="#ffd6e4" stroke="#171114" stroke-width="1.4"/>
+          </g>
+        </g>
+      </svg>
+      <p class="loader__title">JINNN<span>.XYZ</span></p>
+      <div class="loader__bar"><span id="loaderBar"></span></div>
+      <p class="loader__meta"><span id="loaderPct">0%</span><span id="loaderNote">waking the kitty…</span></p>
+    </div>
+  </div>
+
+  <!-- 页头 -->
+  <header class="site-header" id="siteHeader">
+    <div class="site-header__inner">
+      <a class="brand" href="#top" aria-label="回到顶部 jinnn.xyz">
+        <span class="brand__mark">jinnn<span class="brand__dot">.</span></span>
+        <span class="brand__seal" aria-hidden="true">今</span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <a href="#about"><span>01</span>关于</a>
+        <a href="#work"><span>02</span>作品</a>
+        <a href="#lab"><span>03</span>实验室</a>
+        <a href="#contact"><span>04</span>联系</a>
+      </nav>
+      <div class="site-tools">
+        <span class="clock" id="clock" title="徐州时间">--:--:--</span>
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="切换深浅色" title="切换深浅色">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M19.1 4.9l-1.6 1.6M6.5 17.5l-1.6 1.6"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8.2 8.2 0 1 0 10.5 10.5Z"/></svg>
+        </button>
+        <a class="tool-link" href="https://github.com/luongthimydieu" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.78 1.19 1.78 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.35.78 1.05.78 2.12v3.14c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+          <span>GitHub</span>
+        </a>
+        <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="打开菜单">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 移动端菜单 -->
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <nav class="mobile-menu__nav" aria-label="移动端导航">
+      <a href="#about" data-menu-link><span>01</span>关于 <em>About</em></a>
+      <a href="#work" data-menu-link><span>02</span>作品 <em>Work</em></a>
+      <a href="#lab" data-menu-link><span>03</span>实验室 <em>Lab</em></a>
+      <a href="#contact" data-menu-link><span>04</span>联系 <em>Contact</em></a>
+    </nav>
+    <div class="mobile-menu__foot">
+      <a href="https://github.com/luongthimydieu" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://cnb.cool/jin.twelve" target="_blank" rel="noopener">CNB ↗</a>
+      <a href="mailto:wangzhiwen1224@126.com">写信 ↗</a>
+    </div>
+  </div>
+
+  <!-- 右侧分节导航 -->
+  <aside class="rail" aria-hidden="true">
+    <a href="#top" class="rail__dot" data-rail="hero"><span>Top</span></a>
+    <a href="#about" class="rail__dot" data-rail="about"><span>01</span></a>
+    <a href="#work" class="rail__dot" data-rail="work"><span>02</span></a>
+    <a href="#lab" class="rail__dot" data-rail="lab"><span>03</span></a>
+    <a href="#contact" class="rail__dot" data-rail="contact"><span>04</span></a>
+  </aside>
+
+  <main id="main">
+    <span id="top"></span>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero" aria-labelledby="heroTitle">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="kicker" data-reveal>
+            <span class="kicker__dot"></span>
+            JIN — A LITTLE WORKSHOP · XUZHOU, CHINA
+          </p>
+          <h1 class="hero__title" id="heroTitle" data-reveal>
+            <span class="hero__line">Cute by</span>
+            <span class="hero__line">default,</span>
+            <span class="hero__line hero__line--accent"><em>useful</em> by</span>
+            <span class="hero__line">design.</span>
+          </h1>
+          <p class="hero__lead" data-reveal>
+            把日常的小麻烦，做成顺手的小工具。<br class="br-desk">偶尔，也给界面换一身粉色。
+          </p>
+          <p class="hero__sub" data-reveal>
+            中国矿业大学 · 数据科学与大数据技术 · 2025 年冬天开始写东西
+          </p>
+          <div class="hero__actions" data-reveal>
+            <a class="btn btn--ink" href="#work"><span>看看作品</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg></a>
+            <a class="btn btn--ghost" href="https://github.com/luongthimydieu" target="_blank" rel="noopener"><span>GitHub</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </div>
+          <dl class="hero__meta" data-reveal>
+            <div><dt data-live="repos">12</dt><dd>公开仓库</dd></div>
+            <div><dt data-live="projects">7</dt><dd>原创项目</dd></div>
+            <div><dt>1</dt><dd>只猫</dd></div>
+            <div><dt>∞</dt><dd>次重写</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero__stage" data-reveal>
+          <div class="mascot-wrap" id="mascotWrap">
+            <div class="mascot-card" id="mascotCard">
+              <div class="mascot-card__bar">
+                <span class="mascot-card__dots"><i></i><i></i><i></i></span>
+                <span class="mascot-card__name">kitty.exe</span>
+                <span class="mascot-card__status">运行中</span>
+              </div>
+              <div class="mascot-card__body">
+                <svg class="mascot" id="mascot" viewBox="0 0 480 460" role="img" aria-label="一只戴着蝴蝶结的白猫插画">
+                  <defs>
+                    <radialGradient id="haloGrad" cx="50%" cy="45%" r="55%">
+                      <stop offset="0%" stop-color="#ffd9e7" stop-opacity=".95"/>
+                      <stop offset="100%" stop-color="#ffd9e7" stop-opacity="0"/>
+                    </radialGradient>
+                    <linearGradient id="bowGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#ff9bc2"/>
+                      <stop offset="100%" stop-color="#f2568f"/>
+                    </linearGradient>
+                  </defs>
+                  <circle cx="240" cy="230" r="200" fill="url(#haloGrad)"/>
+                  <g class="mascot__sparkle" aria-hidden="true">
+                    <path d="M86 118l6 16 16 6-16 6-6 16-6-16-16-6 16-6z" fill="#f2568f" opacity=".75"/>
+                    <path d="M404 300l4 11 11 4-11 4-4 11-4-11-11-4 11-4z" fill="#ffc857" opacity=".9"/>
+                    <circle cx="400" cy="128" r="6" fill="#8fd7c1"/>
+                    <circle cx="72" cy="330" r="5" fill="#c9b3ff"/>
+                  </g>
+
+                  <!-- ears -->
+                  <path d="M128 178 108 74l96 54z" fill="#fffaf6" stroke="#171114" stroke-width="7" stroke-linejoin="round"/>
+                  <path d="M352 178 372 74l-96 54z" fill="#fffaf6" stroke="#171114" stroke-width="7" stroke-linejoin="round"/>
+                  <path d="M137 154l-12-56 52 30z" fill="#ffc2d8"/>
+                  <path d="M343 154l12-56-52 30z" fill="#ffc2d8"/>
+
+                  <!-- head -->
+                  <ellipse cx="240" cy="262" rx="152" ry="132" fill="#fffaf6" stroke="#171114" stroke-width="7"/>
+
+                  <!-- bow -->
+                  <g transform="translate(150 150) rotate(-18)"><g class="mascot__bow">
+                    <path d="M-4 4c-46-34-78 2-56 30 20 25 50 6 60-14z" fill="url(#bowGrad)" stroke="#171114" stroke-width="6" stroke-linejoin="round"/>
+                    <path d="M4 4c46-34 78 2 56 30-20 25-50 6-60-14z" fill="url(#bowGrad)" stroke="#171114" stroke-width="6" stroke-linejoin="round"/>
+                    <circle cx="0" cy="14" r="17" fill="#ffd6e4" stroke="#171114" stroke-width="6"/>
+                    <circle cx="-18" cy="8" r="5" fill="#fff" opacity=".7"/>
+                  </g></g>
+
+                  <!-- eyes -->
+                  <g class="mascot__eye" data-eye>
+                    <ellipse cx="186" cy="256" rx="27" ry="34" fill="#fffaf6" stroke="#171114" stroke-width="7"/>
+                    <g class="mascot__pupil" data-pupil><ellipse cx="186" cy="258" rx="15" ry="23" fill="#171114"/><circle cx="179" cy="246" r="5.5" fill="#fff"/><circle cx="192" cy="270" r="2.6" fill="#fff" opacity=".8"/></g>
+                  </g>
+                  <g class="mascot__eye" data-eye>
+                    <ellipse cx="294" cy="256" rx="27" ry="34" fill="#fffaf6" stroke="#171114" stroke-width="7"/>
+                    <g class="mascot__pupil" data-pupil><ellipse cx="294" cy="258" rx="15" ry="23" fill="#171114"/><circle cx="287" cy="246" r="5.5" fill="#fff"/><circle cx="300" cy="270" r="2.6" fill="#fff" opacity=".8"/></g>
+                  </g>
+
+                  <!-- nose / mouth -->
+                  <path d="M228 306h24l-12 13z" fill="#ffc857" stroke="#171114" stroke-width="5" stroke-linejoin="round"/>
+                  <path d="M240 319v9c-6 5-14 5-19-1M240 328c6 5 14 5 19-1" fill="none" stroke="#171114" stroke-width="5" stroke-linecap="round"/>
+
+                  <!-- blush -->
+                  <ellipse cx="158" cy="306" rx="24" ry="12" fill="#ff9bc2" opacity=".45"/>
+                  <ellipse cx="322" cy="306" rx="24" ry="12" fill="#ff9bc2" opacity=".45"/>
+
+                  <!-- whiskers -->
+                  <g stroke="#171114" stroke-width="4.6" stroke-linecap="round" opacity=".85">
+                    <path d="M96 272h58M92 300h60M100 328h56"/>
+                    <path d="M384 272h-58M388 300h-60M380 328h-56"/>
+                  </g>
+
+                  <!-- paws holding a tiny sign -->
+                  <g class="mascot__paws">
+                    <rect x="152" y="402" width="176" height="40" rx="20" fill="#fffaf6" stroke="#171114" stroke-width="6"/>
+                    <text x="240" y="429" text-anchor="middle" font-family="'Space Grotesk',monospace" font-size="17.5" font-weight="700" fill="#171114" letter-spacing="1.4">HELLO WORLD</text>
+                    <ellipse cx="136" cy="394" rx="34" ry="24" fill="#fffaf6" stroke="#171114" stroke-width="6"/>
+                    <ellipse cx="344" cy="394" rx="34" ry="24" fill="#fffaf6" stroke="#171114" stroke-width="6"/>
+                  </g>
+                </svg>
+
+                <div class="mascot-card__hint">
+                  <span class="mascot-card__hint-dot"></span>
+                  <span>点我一下试试</span>
+                </div>
+              </div>
+            </div>
+
+            <span class="sticker sticker--a" data-parallax="6">🎀</span>
+            <span class="sticker sticker--b" data-parallax="-8">hello,<br>kitty lover</span>
+            <span class="sticker sticker--c" data-parallax="10">数据科学<br>× 少女心</span>
+            <span class="sticker sticker--d" data-parallax="-5">CSS<br>IS ART</span>
+            <figure class="avatar-chip" data-parallax="-4">
+              <img src="assets/img/upload/avatar.jpg" alt="我的猫" width="900" height="900" loading="lazy">
+              <figcaption>my cat approves</figcaption>
+            </figure>
+          </div>
+
+          <div class="hero__orbit" aria-hidden="true">
+            <span class="hero__orbit-text">SCROLL TO EXPLORE ✿ SCROLL TO EXPLORE ✿ </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__footer container" data-reveal>
+        <a class="scroll-cue" href="#about"><span class="scroll-cue__line"></span>继续往下看</a>
+        <p class="hero__coords">34.26°N · 117.18°E — XUZHOU</p>
+        <p class="hero__now"><span class="pulse-dot"></span><span data-live="status">正在写一点新东西</span></p>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee-wrap" aria-hidden="true"><div class="marquee">
+      <div class="marquee__track">
+        <span class="marquee__item">HELLO KITTY ENJOYER</span><span class="marquee__sep">✿</span>
+        <span class="marquee__item">DESKTOP MAGIC</span><span class="marquee__sep">🎀</span>
+        <span class="marquee__item">BROWSER HACKS</span><span class="marquee__sep">✿</span>
+        <span class="marquee__item">数据科学与大数据技术</span><span class="marquee__sep">🎀</span>
+        <span class="marquee__item">CUTE BUT SERIOUS</span><span class="marquee__sep">✿</span>
+        <span class="marquee__item">MADE IN XUZHOU</span><span class="marquee__sep">🎀</span>
+        <span class="marquee__item">HELLO KITTY ENJOYER</span><span class="marquee__sep">✿</span>
+        <span class="marquee__item">DESKTOP MAGIC</span><span class="marquee__sep">🎀</span>
+        <span class="marquee__item">BROWSER HACKS</span><span class="marquee__sep">✿</span>
+        <span class="marquee__item">数据科学与大数据技术</span><span class="marquee__sep">🎀</span>
+        <span class="marquee__item">CUTE BUT SERIOUS</span><span class="marquee__sep">✿</span>
+        <span class="marquee__item">MADE IN XUZHOU</span><span class="marquee__sep">🎀</span>
+      </div>
+    </div></div>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about" aria-labelledby="aboutTitle">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker"><span class="kicker__num">01</span> ABOUT — 关于</p>
+          <div class="section-head__row">
+            <h2 class="section-title" id="aboutTitle">做点小东西，<em>安静地</em>用。</h2>
+            <p class="section-head__lead">在徐州读书，喜欢把日常的小麻烦做成顺手的小工具。<br>比起热闹，我更在意它安不安静、靠不靠谱。</p>
+          </div>
+        </header>
+
+        <div class="about-grid">
+          <figure class="polaroid" data-reveal data-tilt>
+            <span class="polaroid__tape" aria-hidden="true"></span>
+            <img src="assets/img/upload/avatar.jpg" alt="我的猫，也是这个网站的头像" width="900" height="900" loading="lazy">
+            <figcaption><span>头像本人（猫）</span><span>2026 · XZ</span></figcaption>
+          </figure>
+
+          <div class="about-copy" data-reveal>
+            <p class="about-copy__lead">我是 jin，在中国矿业大学读数据科学与大数据技术。我喜欢的项目都不太起眼：让任务栏滚一行歌词、把手机上的待办同步到桌面、把学习通里已经能看到的题目整理成本地资料。也喜欢给工具换皮肤，比如把 DeepSeek Harness 刷成 Hello Kitty 粉。</p>
+            <p>代码不算多，但每件都自己天天用。所以这个网站也不打算写成简历——它更像一张工作台的照片：左边是做过的东西，右边是今天的待办，中间躺着一只猫。</p>
+            <p class="about-copy__sign">—— jin，写于徐州</p>
+            <ul class="facts">
+              <li><span class="facts__k">学校</span><span class="facts__v">中国矿业大学</span></li>
+              <li><span class="facts__k">专业</span><span class="facts__v">数据科学与大数据技术</span></li>
+              <li><span class="facts__k">坐标</span><span class="facts__v">江苏 · 徐州</span></li>
+              <li><span class="facts__k">邮箱</span><span class="facts__v"><a href="mailto:wangzhiwen1224@126.com">wangzhiwen1224@126.com</a></span></li>
+              <li><span class="facts__k">现在</span><span class="facts__v">收尾 XXT Copilot / 打磨任务栏歌词</span></li>
+            </ul>
+          </div>
+
+          <aside class="seal-quote" data-reveal>
+            <div class="seal" aria-hidden="true"><span>今</span></div>
+            <blockquote>人生海海<br>不过尔尔</blockquote>
+            <p class="seal-quote__cite">— 写在我的 GitHub 主页</p>
+            <p class="seal-quote__en">the sea of life, nothing more.</p>
+          </aside>
+        </div>
+
+        <div class="stats-row" data-reveal>
+          <div class="stat"><span class="stat__num" data-count="12">12</span><span class="stat__label">公开仓库</span></div>
+          <div class="stat"><span class="stat__num" data-count="7">7</span><span class="stat__label">原创项目</span></div>
+          <div class="stat"><span class="stat__num" data-count="2">2</span><span class="stat__label">已上线页面</span></div>
+          <div class="stat"><span class="stat__num" data-count="1">1</span><span class="stat__label">只猫</span></div>
+        </div>
+
+        <ol class="timeline" data-reveal>
+          <li class="timeline__item">
+            <span class="timeline__date">2025.12</span>
+            <div class="timeline__body"><h3>注册 GitHub</h3><p>第一行代码之前，先占了个名字：luongthimydieu。</p></div>
+          </li>
+          <li class="timeline__item">
+            <span class="timeline__date">2026.01</span>
+            <div class="timeline__body"><h3>三个练手项目</h3><p>Course Q&amp;A Agent、SimpleTSAD、AgriGuardian-IoT 在同一个月里开了头。</p></div>
+          </li>
+          <li class="timeline__item">
+            <span class="timeline__date">2026.08</span>
+            <div class="timeline__body"><h3>Kitty 皮肤起步</h3><p>给 DeepSeek Harness 做了一套 Hello Kitty 主题；中间放下，十月又捡起来收尾。</p></div>
+          </li>
+          <li class="timeline__item">
+            <span class="timeline__date">2026.10.17</span>
+            <div class="timeline__body"><h3>任务栏的两天</h3><p>一天做桌面端歌词，一天做手机端待办，它们在任务栏里碰头。</p></div>
+          </li>
+          <li class="timeline__item">
+            <span class="timeline__date">2026.10.18</span>
+            <div class="timeline__body"><h3>上架 Edge 商店</h3><p>XXT Copilot 通过 Microsoft Edge 认证，v0.1.5 正式上架。</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section class="section work" id="work" aria-labelledby="workTitle">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker"><span class="kicker__num">02</span> SELECTED WORK — 作品</p>
+          <div class="section-head__row">
+            <h2 class="section-title" id="workTitle">做过的<em>小东西</em>。</h2>
+            <p class="section-head__lead">从任务栏到浏览器，再到一块试验田。<br>都是自己每天会用到的东西。</p>
+          </div>
+        </header>
+
+        <div class="filters" data-reveal role="tablist" aria-label="按类别筛选作品">
+          <button class="filter is-active" type="button" data-filter="all" role="tab" aria-selected="true">全部 <span>07</span></button>
+          <button class="filter" type="button" data-filter="desktop" role="tab" aria-selected="false">桌面 <span>02</span></button>
+          <button class="filter" type="button" data-filter="browser" role="tab" aria-selected="false">浏览器 <span>01</span></button>
+          <button class="filter" type="button" data-filter="ai" role="tab" aria-selected="false">AI <span>02</span></button>
+          <button class="filter" type="button" data-filter="hardware" role="tab" aria-selected="false">硬件 <span>01</span></button>
+          <button class="filter" type="button" data-filter="experiment" role="tab" aria-selected="false">实验 <span>01</span></button>
+        </div>
+
+        <div class="bento" id="bento">
+          <!-- 01 kitty -->
+          <article class="card card--wide card--kitty reveal" data-category="ai">
+            <a class="card__link" href="https://github.com/luongthimydieu/dsh-client-ui-skin-kitty" target="_blank" rel="noopener" aria-label="DSH Hello Kitty 皮肤：在 GitHub 打开">
+              <div class="card__visual viz viz--kitty" aria-hidden="true">
+                <div class="viz-window viz-window--pink">
+                  <div class="viz-window__bar"><i></i><i></i><i></i><span>hello-kitty / dsh</span></div>
+                  <div class="viz-window__body">
+                    <div class="viz-bubble viz-bubble--l">帮我把界面换成粉色，可以吗？</div>
+                    <div class="viz-bubble viz-bubble--r">可以，已经换好了 🎀</div>
+                    <div class="viz-bubble viz-bubble--l viz-bubble--typing"><i></i><i></i><i></i></div>
+                  </div>
+                  <span class="viz-kittymask">🎀</span>
+                </div>
+                <span class="viz-badge viz-badge--fav">MY FAVOURITE</span>
+                <span class="viz-tag viz-tag--a">MIT</span>
+                <span class="viz-tag viz-tag--b">DSH PLUGIN</span>
+              </div>
+              <div class="card__body">
+                <div class="card__meta"><span class="card__num">01</span><span>DSH PLUGIN · AI</span><span class="card__status">MIT</span></div>
+                <h3 class="card__title">Hello Kitty Skin <em>for DSH</em></h3>
+                <p class="card__desc">给 DeepSeek Harness 的 Web 界面换一身 Hello Kitty 皮肤：粉色调、可替换壁纸，浅色深色各一套，随启动自动恢复。不改变界面原有功能。</p>
+                <ul class="card__tags"><li>CSS</li><li>JavaScript</li><li>DSH Plugin</li></ul>
+                <span class="card__cta">在 GitHub 打开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+              </div>
+            </a>
+          </article>
+
+          <!-- 02 win11 -->
+          <article class="card card--taskbar reveal" data-category="desktop">
+            <a class="card__link" href="https://github.com/luongthimydieu/win11-taskbar-lyrics" target="_blank" rel="noopener" aria-label="Win11 Taskbar Lyrics：在 GitHub 打开">
+              <div class="card__visual viz viz--win11" aria-hidden="true">
+                <div class="viz-desktop">
+                  <div class="viz-lyric">像星轨交错，<br>却永不相认。</div>
+                  <span class="viz-lyric__note">♪ 网易云音乐 · 正在播放</span>
+                </div>
+                <div class="viz-taskbar">
+                  <span class="viz-taskbar__icons"><i>⊞</i><i>⌕</i><i>▤</i><i>◍</i></span>
+                  <span class="viz-capsule">
+                    <span class="viz-capsule__wave"><i></i><i></i><i></i><i></i></span>
+                    <span class="viz-capsule__text">像星轨交错，却永不相认</span>
+                  </span>
+                  <span class="viz-taskbar__clock">23:42</span>
+                </div>
+                <span class="viz-badge">WIN11</span>
+              </div>
+              <div class="card__body">
+                <div class="card__meta"><span class="card__num">02</span><span>DESKTOP · PYTHON</span><span class="card__status">v1.2.9</span></div>
+                <h3 class="card__title">Taskbar <em>Lyrics</em></h3>
+                <p class="card__desc">把 Windows 11 任务栏的空白处变成一条会唱歌的信息栏：主行滚动歌词，副行轮播热评与待办；手机端 PWA 通过自己的私密 Gist 双向同步，不需要自建服务器。</p>
+                <ul class="card__tags"><li>Python</li><li>PyQt6</li><li>Win32 API</li><li>PWA</li></ul>
+                <span class="card__cta">在 GitHub 打开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+              </div>
+            </a>
+          </article>
+
+          <!-- 03 xxt -->
+          <article class="card reveal" data-category="browser">
+            <a class="card__link" href="https://github.com/luongthimydieu/xxt-copilot" target="_blank" rel="noopener" aria-label="XXT Copilot：在 GitHub 打开">
+              <div class="card__visual viz viz--xxt" aria-hidden="true">
+                <div class="viz-popup">
+                  <div class="viz-popup__head"><span class="viz-popup__logo">🧩</span><span>XXT Copilot</span><span class="viz-popup__pill">LOCAL ONLY</span></div>
+                  <div class="viz-popup__rows">
+                    <span><i>01</i>章节测验 · 已采集 <b>12</b></span>
+                    <span><i>02</i>作业题目 · 已采集 <b>8</b></span>
+                    <span><i>03</i>官方答案 · 已校对 <b>20</b></span>
+                  </div>
+                  <div class="viz-popup__actions"><span>MD</span><span>JSON</span><span>CSV</span><span>打印</span></div>
+                </div>
+                <span class="viz-badge viz-badge--edge">EDGE 已上架</span>
+              </div>
+              <div class="card__body">
+                <div class="card__meta"><span class="card__num">03</span><span>BROWSER · MV3</span><span class="card__status">v0.1.5</span></div>
+                <h3 class="card__title">XXT <em>Copilot</em></h3>
+                <p class="card__desc">只读采集学习通里已经能看到的题目，在本机整理成复习资料。不答题、不交卷、不上传；本机处理、无遥测，已上架 Microsoft Edge 加载项商店。</p>
+                <ul class="card__tags"><li>JavaScript</li><li>Manifest V3</li><li>DOMParser</li></ul>
+                <span class="card__cta">在 GitHub 打开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+              </div>
+            </a>
+          </article>
+
+          <!-- 04 agri -->
+          <article class="card reveal" data-category="hardware">
+            <a class="card__link" href="https://github.com/luongthimydieu/AgriGuardian-IoT" target="_blank" rel="noopener" aria-label="AgriGuardian IoT：在 GitHub 打开">
+              <div class="card__visual viz viz--agri" aria-hidden="true">
+                <svg class="viz-field" viewBox="0 0 400 240" role="presentation">
+                  <path d="M0 190c70-26 130-12 200-30s140-30 200-8v88H0z" fill="#dcefd2"/>
+                  <path d="M0 210c80-18 150-8 210-22s120-22 190-6v58H0z" fill="#c8e5b8"/>
+                  <g class="viz-nodes" fill="none" stroke="#5f9e5a" stroke-width="2" stroke-dasharray="4 5">
+                    <path d="M70 176 200 120l130 56"/>
+                    <path d="M70 176 200 206l130-30"/>
+                  </g>
+                  <g class="viz-dots">
+                    <circle cx="70" cy="176" r="9" fill="#7bc8a4" stroke="#171114" stroke-width="2.4"/>
+                    <circle cx="200" cy="120" r="12" fill="#ffd6e4" stroke="#171114" stroke-width="2.4"/>
+                    <circle cx="330" cy="176" r="9" fill="#7bc8a4" stroke="#171114" stroke-width="2.4"/>
+                    <circle cx="200" cy="206" r="7" fill="#ffc857" stroke="#171114" stroke-width="2.4"/>
+                  </g>
+                  <text x="200" y="98" text-anchor="middle" font-size="12" font-family="'Space Grotesk',monospace" fill="#3d6b42" letter-spacing="1">GATEWAY</text>
+                  <text x="70" y="160" text-anchor="middle" font-size="10" font-family="'Space Grotesk',monospace" fill="#3d6b42">NODE</text>
+                  <text x="330" y="160" text-anchor="middle" font-size="10" font-family="'Space Grotesk',monospace" fill="#3d6b42">NODE</text>
+                </svg>
+                <span class="viz-badge viz-badge--green">方案阶段</span>
+                <span class="viz-tag viz-tag--b">LoRaWAN</span>
+              </div>
+              <div class="card__body">
+                <div class="card__meta"><span class="card__num">04</span><span>HARDWARE · 方案</span><span class="card__status">国家级大创</span></div>
+                <h3 class="card__title">AgriGuardian <em>IoT</em></h3>
+                <p class="card__desc">一套给农田设计的自供电土壤墒情监测方案：多源能量收集 + 边缘智能，让传感器不用频繁换电池。仓库目前是立项方案与目录骨架，指标均为设计目标。</p>
+                <ul class="card__tags"><li>ESP32-S3</li><li>LoRaWAN</li><li>XGBoost</li></ul>
+                <span class="card__cta">在 GitHub 打开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+              </div>
+            </a>
+          </article>
+
+          <!-- 05 todo -->
+          <article class="card reveal" data-category="desktop">
+            <a class="card__link" href="https://github.com/luongthimydieu/taskbar-todo" target="_blank" rel="noopener" aria-label="Taskbar Todo 手机端：在 GitHub 打开">
+              <div class="card__visual viz viz--todo" aria-hidden="true">
+                <div class="viz-phone">
+                  <div class="viz-phone__notch"></div>
+                  <div class="viz-phone__head"><span>今天</span><span class="viz-phone__time">22:04</span></div>
+                  <ul class="viz-todo">
+                    <li class="is-done"><i></i>把 XXT Copilot 的文档补齐</li>
+                    <li><i></i>给任务栏歌词加一个开关</li>
+                    <li><i></i>睡前读两页机器人算法</li>
+                  </ul>
+                  <div class="viz-phone__sync">↻ 已同步到任务栏 · 30s</div>
+                </div>
+                <span class="viz-badge viz-badge--mint">PWA</span>
+              </div>
+              <div class="card__body">
+                <div class="card__meta"><span class="card__num">05</span><span>DESKTOP · PWA</span><span class="card__status">手机端</span></div>
+                <h3 class="card__title">Taskbar <em>Todo</em></h3>
+                <p class="card__desc">任务栏待办系统的手机端：纯静态、零后端的单页 PWA。待办存在自己的私密 Gist 里，与电脑端共用一组 Token；22:00 之后新增的待办自动算到明天。</p>
+                <ul class="card__tags"><li>HTML</li><li>Service Worker</li><li>GitHub Gist</li></ul>
+                <span class="card__cta">在 GitHub 打开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+              </div>
+            </a>
+          </article>
+
+          <!-- 06 course agent -->
+          <article class="card card--medium reveal" data-category="ai">
+            <a class="card__link" href="https://github.com/luongthimydieu/Course-Q-A-Agent" target="_blank" rel="noopener" aria-label="Course Q&A Agent：在 GitHub 打开">
+              <div class="card__visual viz viz--agent" aria-hidden="true">
+                <div class="viz-console">
+                  <div class="viz-console__bar"><i></i><i></i><i></i><span>agent.py — 30 lines</span></div>
+                  <div class="viz-console__body">
+                    <p><span class="viz-user">你</span> 什么是过拟合？</p>
+                    <p class="viz-ai"><span class="viz-bot">助教</span> 模型把训练数据里的噪声也背下来了。<br>简洁版：记住答案，但不会做题。</p>
+                    <p class="viz-code">$ model: glm-4-flash · history: 3</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card__body">
+                <div class="card__meta"><span class="card__num">06</span><span>AI · PYTHON</span><span class="card__status">教学向</span></div>
+                <h3 class="card__title">Course <em>Q&amp;A Agent</em></h3>
+                <p class="card__desc">调用智谱 GLM-4-Flash 的极简课程答疑助教。核心实现三十行左右，用来把 LLM 智能体的基本结构讲清楚：系统角色、对话历史，加一次 chat completions。</p>
+                <ul class="card__tags"><li>Python</li><li>GLM-4-Flash</li><li>CLI</li></ul>
+                <span class="card__cta">在 GitHub 打开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+              </div>
+            </a>
+          </article>
+
+          <!-- 07 tsad -->
+          <article class="card reveal" data-category="experiment">
+            <a class="card__link" href="https://github.com/luongthimydieu/SimpleTSAD" target="_blank" rel="noopener" aria-label="SimpleTSAD：在 GitHub 打开">
+              <div class="card__visual viz viz--tsad" aria-hidden="true">
+                <div class="viz-chart">
+                  <svg viewBox="0 0 400 200" role="presentation">
+                    <path class="viz-chart__line" d="M0 150 C30 140,45 90,70 96 S110 150,135 138 S180 60,210 74 S250 140,275 126 S320 44,350 62 S380 120,400 108" fill="none" stroke="#171114" stroke-width="2.6"/>
+                    <g class="viz-chart__dots">
+                      <circle cx="135" cy="138" r="6" fill="#e8275d"/>
+                      <circle cx="275" cy="126" r="6" fill="#e8275d"/>
+                      <circle cx="350" cy="62" r="6" fill="#e8275d"/>
+                    </g>
+                    <path d="M0 178h400" stroke="#171114" stroke-width="1" opacity=".15"/>
+                  </svg>
+                  <p class="viz-chart__out">anomalies: <b>3</b> / rows: 100000 / 135ms</p>
+                </div>
+              </div>
+              <div class="card__body">
+                <div class="card__meta"><span class="card__num">07</span><span>EXPERIMENT · C++</span><span class="card__status">v1.0</span></div>
+                <h3 class="card__title">Simple <em>TSAD</em></h3>
+                <p class="card__desc">一个零依赖的 C++17 时序异常检测小工具：读 CSV，用滑动窗口 Z-score 标出异常点，再写一份带标记的 CSV。README 记录 10 万行检测约 135ms（作者自测）。</p>
+                <ul class="card__tags"><li>C++17</li><li>CMake</li><li>CLI</li></ul>
+                <span class="card__cta">在 GitHub 打开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+              </div>
+            </a>
+          </article>
+
+          <!-- 08 more -->
+          <article class="card card--more reveal" data-category="all">
+            <a class="card__link" href="https://github.com/luongthimydieu?tab=repositories" target="_blank" rel="noopener" aria-label="在 GitHub 查看全部仓库">
+              <div class="card__more-inner">
+                <span class="card__more-label">还有更多</span>
+                <p class="card__more-title">三个 fork、<br>一堆半成品，<br>都在 GitHub 上。</p>
+                <span class="card__more-cta">全部 12 个仓库<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+                <span class="card__more-emoji" aria-hidden="true">🐾</span>
+              </div>
+            </a>
+          </article>
+        </div>
+
+        <p class="work__note" data-reveal>点开任意一张卡片去 GitHub 看源码。<br>项目同步镜像在 <a href="https://cnb.cool/jin.twelve" target="_blank" rel="noopener">腾讯 CNB · jin.twelve</a>。</p>
+      </div>
+    </section>
+
+    <!-- ============ LAB ============ -->
+    <section class="section lab" id="lab" aria-labelledby="labTitle">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker"><span class="kicker__num">03</span> THE LAB — 实验室</p>
+          <div class="section-head__row">
+            <h2 class="section-title" id="labTitle">运行中的<em>日常</em>。</h2>
+            <p class="section-head__lead">一些正在发生的小事：终端里敲下的字，<br>耳机里循环的调子，和每天抽到的那支签。</p>
+          </div>
+        </header>
+
+        <div class="lab-grid">
+          <!-- terminal -->
+          <div class="terminal reveal" id="terminal" aria-label="我的近况终端">
+            <div class="terminal__bar">
+              <span class="terminal__dots"><i></i><i></i><i></i></span>
+              <span class="terminal__title">jin@xuzhou — ~/now</span>
+              <span class="terminal__badge">zsh</span>
+            </div>
+            <div class="terminal__body" id="terminalBody" aria-live="polite">
+              <p class="terminal__line" data-line="cmd" data-text="whoami">whoami</p>
+              <p class="terminal__line" data-line="out" data-text="jin — 中国矿业大学 · 数据科学与大数据技术">jin — 中国矿业大学 · 数据科学与大数据技术</p>
+              <p class="terminal__line" data-line="cmd" data-text="cat now.txt">cat now.txt</p>
+              <p class="terminal__line" data-line="out" data-text="正在收尾 XXT Copilot v0.1.5">正在收尾 XXT Copilot v0.1.5</p>
+              <p class="terminal__line" data-line="out" data-text="正在给任务栏歌词打补丁">正在给任务栏歌词打补丁</p>
+              <p class="terminal__line" data-line="out" data-text="正在把 Hello Kitty 塞进 DSH 界面 🎀">正在把 Hello Kitty 塞进 DSH 界面 🎀</p>
+              <p class="terminal__line" data-line="cmd" data-text="git log --oneline -3">git log --oneline -3</p>
+              <p class="terminal__line" data-line="out" data-text="2026-10-18  上架 Edge 加载项商店">2026-10-18  上架 Edge 加载项商店</p>
+              <p class="terminal__line" data-line="out" data-text="2026-10-17  任务栏歌词 v1.2.9 · 免安装版">2026-10-17  任务栏歌词 v1.2.9 · 免安装版</p>
+              <p class="terminal__line" data-line="out" data-text="2026-10-17  手机端待办 PWA 上线">2026-10-17  手机端待办 PWA 上线</p>
+              <p class="terminal__line" data-line="cmd" data-text="echo &quot;人生海海，不过尔尔&quot;">echo &quot;人生海海，不过尔尔&quot;</p>
+              <p class="terminal__line" data-line="out" data-text="人生海海，不过尔尔">人生海海，不过尔尔</p>
+              <p class="terminal__line terminal__line--cursor" data-line="prompt" data-text=""></p>
+            </div>
+          </div>
+
+          <!-- kitty fm -->
+          <div class="fm reveal" aria-label="Kitty FM 音乐播放器">
+            <div class="fm__head">
+              <span class="kicker kicker--small">KITTY FM · 现场合成</span>
+              <span class="fm__status" id="fmStatus">PAUSED</span>
+            </div>
+            <div class="fm__player">
+              <div class="fm__vinyl" id="fmVinyl">
+                <span class="fm__vinyl-label">🎀</span>
+              </div>
+              <button class="fm__btn" id="fmBtn" type="button" aria-label="播放 Kitty FM">
+                <svg class="fm__icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>
+                <svg class="fm__icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z"/></svg>
+              </button>
+            </div>
+            <div class="fm__eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="fm__meta">
+              <p class="fm__track">8-bit Lullaby for a Cat</p>
+              <p class="fm__sub">浏览器现场合成的循环小调 · 没有版权问题</p>
+            </div>
+          </div>
+
+          <!-- fortune -->
+          <div class="fortune reveal" aria-label="今日签">
+            <div class="fortune__head">
+              <span class="kicker kicker--small">今日签 · DAILY FORTUNE</span>
+              <button class="fortune__btn" id="fortuneBtn" type="button">抽一张</button>
+            </div>
+            <div class="fortune__card" id="fortuneCard">
+              <div class="fortune__inner">
+                <div class="fortune__face fortune__face--front">
+                  <span class="fortune__glyph">签</span>
+                  <p>今天适合做点<br><em>小而确定</em>的事</p>
+                  <span class="fortune__hint">点「抽一张」</span>
+                </div>
+                <div class="fortune__face fortune__face--back">
+                  <span class="fortune__num" id="fortuneNum">No.01</span>
+                  <p id="fortuneText">今日宜：把 TODO 改成 DONE。</p>
+                  <span class="fortune__hint">仅供开心 · 明天再来</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- toolbox -->
+          <div class="toolbox reveal" aria-label="常用工具">
+            <span class="kicker kicker--small">TOOLBOX · 常用工具</span>
+            <ul class="toolbox__chips">
+              <li>Manifest V3</li><li>PyQt6</li><li>Win32 API</li><li>C++17</li><li>CMake</li>
+              <li>PWA</li><li>Service Worker</li><li>GitHub Gist</li><li>CSS 主题</li><li>DSH 插件</li>
+              <li>GLM-4-Flash</li><li>Node.js</li><li>PowerShell</li><li>LoRaWAN</li>
+            </ul>
+            <p class="toolbox__note">能拿仓库作证的就这些。还在学的，等做出来再写。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact" aria-labelledby="contactTitle">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker"><span class="kicker__num">04</span> CONTACT — 联系</p>
+          <div class="section-head__row">
+            <h2 class="section-title" id="contactTitle">写信给我，<em>或者</em>扫个码。</h2>
+            <p class="section-head__lead">看到有意思的东西、想一起做点什么，<br>或者只是想说一句「你的猫好可爱」。</p>
+          </div>
+        </header>
+
+        <div class="contact-grid">
+          <div class="contact-main" data-reveal>
+            <p class="contact-label">EMAIL</p>
+            <button class="email" id="emailBtn" type="button" data-email="wangzhiwen1224@126.com" title="点击复制邮箱">
+              <span class="email__text">wangzhiwen1224@126.com</span>
+              <span class="email__copy" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></span>
+            </button>
+            <p class="contact-note">点击即可复制。邮件是我最常用的联系方式。</p>
+
+            <div class="contact-links">
+              <a class="contact-link" href="https://github.com/luongthimydieu" target="_blank" rel="noopener">
+                <span class="contact-link__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.78 1.19 1.78 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.35.78 1.05.78 2.12v3.14c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg></span>
+                <span class="contact-link__body"><strong>GitHub</strong><small>@luongthimydieu</small></span>
+                <span class="contact-link__arrow">↗</span>
+              </a>
+              <a class="contact-link" href="https://cnb.cool/jin.twelve" target="_blank" rel="noopener">
+                <span class="contact-link__icon contact-link__icon--text">CNB</span>
+                <span class="contact-link__body"><strong>腾讯 CNB</strong><small>jin.twelve · 代码镜像</small></span>
+                <span class="contact-link__arrow">↗</span>
+              </a>
+              <a class="contact-link" href="https://microsoftedge.microsoft.com/addons/detail/afapjlkkkkkodlmamfeknfhnlkjaenih" target="_blank" rel="noopener">
+                <span class="contact-link__icon contact-link__icon--text">⊞</span>
+                <span class="contact-link__body"><strong>Edge 加载项</strong><small>XXT Copilot · v0.1.5</small></span>
+                <span class="contact-link__arrow">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="wechat-card" data-reveal data-tilt>
+            <span class="wechat-card__tape" aria-hidden="true"></span>
+            <div class="wechat-card__imgwrap">
+              <img src="assets/img/upload/wechat-qr.jpg" alt="我的微信二维码" width="900" height="1287">
+            </div>
+            <p class="wechat-card__label">微信 · 扫码加我</p>
+            <p class="wechat-card__sub">备注一下「jinnn.xyz」我会更快通过。</p>
+          </div>
+        </div>
+
+        <div class="contact-sign" data-reveal>
+          <p>人生海海，不过尔尔。</p>
+          <span>— jin · 写于徐州</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__top">
+        <a class="site-footer__brand" href="#top">jinnn<span>.</span>xyz</a>
+        <nav class="site-footer__nav" aria-label="页脚导航">
+          <a href="#about">关于</a><a href="#work">作品</a><a href="#lab">实验室</a><a href="#contact">联系</a>
+          <a href="https://github.com/luongthimydieu" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="https://cnb.cool/jin.twelve" target="_blank" rel="noopener">CNB ↗</a>
+        </nav>
+      </div>
+
+      <div class="site-footer__word" aria-hidden="true">JINNN.XYZ</div>
+
+      <div class="site-footer__bottom">
+        <p>© <span id="year">2026</span> jin · Built quietly in Xuzhou.</p>
+        <p class="site-footer__hint">按 <kbd>Ctrl</kbd>+<kbd>K</kbd> 快速跳转 · 试试输入 <code>kitty</code> · 点猫有惊喜</p>
+        <div class="site-footer__meta">
+          <span class="footer-badge">🎀 Hello Kitty enjoyer</span>
+          <span class="footer-badge">字体：Bodoni Moda / Space Grotesk / JetBrains Mono / 霞鹜文楷</span>
+        </div>
+      </div>
+    </div>
+    <a class="to-top" href="#top" aria-label="回到顶部">↑</a>
+  </footer>
+
+  <!-- 命令面板 -->
+  <div class="palette" id="palette" hidden>
+    <div class="palette__panel" role="dialog" aria-modal="true" aria-label="快捷导航">
+      <div class="palette__input">
+        <span class="palette__prompt">⌘</span>
+        <input id="paletteInput" type="text" placeholder="跳转到… 输入关键词" autocomplete="off" spellcheck="false">
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="palette__list" id="paletteList"></ul>
+      <div class="palette__hint">↑↓ 选择 · Enter 打开 · Esc 关闭</div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+  <noscript>
+    <style>
+      .loader,.cursor,.scroll-progress,.rail{display:none!important}
+      .js .reveal,.card,.hero__copy>*{opacity:1!important;transform:none!important}
+      #terminalBody .terminal__line{opacity:1!important}
+      .filters{display:none}
+      .palette{display:none}
+    </style>
+  </noscript>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

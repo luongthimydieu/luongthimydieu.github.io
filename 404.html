@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 — 这一页被猫叼走了 · jinnn.xyz</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#fbf6f1">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    .lost { min-height: 100svh; display: grid; place-items: center; padding: 24px; position: relative; overflow: hidden; }
+    .lost__glow { position: absolute; inset: 0; background: radial-gradient(620px 480px at 70% 20%, rgba(255,143,184,.28), transparent 62%); pointer-events: none; }
+    .lost__card { position: relative; width: min(100%, 560px); text-align: center; padding: clamp(28px, 6vw, 54px) clamp(22px, 5vw, 46px); border: 1.5px solid var(--ink); border-radius: 28px; background: var(--paper-3); box-shadow: 10px 12px 0 var(--pink-2), var(--shadow-soft); }
+    .lost__kitten { width: 96px; height: 96px; margin: 0 auto 8px; cursor: pointer; }
+    .lost__num { font-family: var(--font-display); font-size: clamp(4.5rem, 18vw, 8rem); line-height: .85; letter-spacing: -.03em; margin: 6px 0 4px; }
+    .lost__num span { color: var(--hot); font-style: italic; }
+    .lost__title { font-family: var(--font-kai); font-size: clamp(1.15rem, 3vw, 1.5rem); letter-spacing: .06em; }
+    .lost__desc { margin-top: 12px; font-size: 13.5px; line-height: 1.9; color: var(--ink-3); }
+    .lost__actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 26px; }
+    .lost__hint { margin-top: 22px; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .08em; color: var(--ink-3); }
+    @media (prefers-color-scheme: dark) {
+      :root { --paper: #120d12; --paper-3: #1f161e; --ink: #f7edf2; --ink-3: #a6909d; --line: rgba(247,237,242,.15); --pink-2: #532c3d; --hot: #ff7aa6; }
+    }
+  </style>
+</head>
+<body>
+  <main class="lost">
+    <div class="lost__glow" aria-hidden="true"></div>
+    <div class="lost__card">
+      <svg class="lost__kitten" viewBox="0 0 64 64" aria-hidden="true" style="color:var(--ink)">
+        <path d="M13 27 17 12l12 9h6l12-9 4 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+        <ellipse cx="32" cy="38" rx="20" ry="16.5" fill="currentColor" opacity=".06"/>
+        <ellipse cx="32" cy="38" rx="20" ry="16.5" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        <circle cx="25" cy="37" r="2.4" fill="currentColor"/>
+        <circle cx="39" cy="37" r="2.4" fill="currentColor"/>
+        <path d="M30 42h4l-2 2z" fill="currentColor"/>
+        <path d="M11 40h9M12 45h8M53 40h-9M52 45h-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <g transform="translate(20 19) rotate(-16)">
+          <path d="M0 0c-6-6-11-2-9 3 1.4 3.6 6 3.2 9-3z" fill="#ff7fae" stroke="#171114" stroke-width="1.6"/>
+          <path d="M0 0c6-6 11-2 9 3-1.4 3.6-6 3.2-9-3z" fill="#ff7fae" stroke="#171114" stroke-width="1.6"/>
+          <circle cx="0" cy="0" r="2.6" fill="#ffd6e4" stroke="#171114" stroke-width="1.4"/>
+        </g>
+      </svg>
+      <p class="lost__num">4<span>0</span>4</p>
+      <h1 class="lost__title">这一页被猫叼走了。</h1>
+      <p class="lost__desc">它可能正在任务栏里听歌，或者在给 DSH 换皮肤。<br>你可以回到首页，或者去 GitHub 找找看。</p>
+      <div class="lost__actions">
+        <a class="btn btn--ink" href="/">回到首页</a>
+        <a class="btn btn--ghost" href="https://github.com/luongthimydieu" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+      <p class="lost__hint">jinnn.xyz · 人生海海，不过尔尔</p>
+    </div>
+  </main>
+  <script>
+    (function () {
+      var kitty = document.querySelector('.lost__kitten');
+      if (!kitty) return;
+      kitty.addEventListener('click', function () {
+        var msgs = ['喵？', '这一页真的不存在。', '再点也没有用，但是很可爱。'];
+        kitty.animate([{ transform: 'rotate(0deg)' }, { transform: 'rotate(8deg)' }, { transform: 'rotate(-8deg)' }, { transform: 'rotate(0deg)' }], { duration: 420 });
+        try { console.log(msgs[Math.floor(Math.random() * msgs.length)]); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>
