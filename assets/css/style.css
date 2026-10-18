@@ -830,7 +830,6 @@ em { font-style: italic; }
 }
 .sticker--a { top: -18px; right: 44px; --rot: 7deg; font-size: 20px; padding: 4px 10px; background: var(--pink-2); }
 .sticker--b { top: 88px; left: -22px; --rot: -7deg; background: var(--butter); }
-.sticker--c { bottom: 92px; right: -18px; --rot: 5deg; background: var(--paper-3); }
 .sticker--d { bottom: -20px; left: 38%; --rot: -3deg; background: var(--mint); }
 .avatar-chip {
   position: absolute;
@@ -2178,7 +2177,6 @@ em { font-style: italic; }
   .scroll-cue__line { width: 28px; }
   .br-desk { display: none; }
   .sticker--b { left: -10px; }
-  .sticker--c { right: -6px; }
   .avatar-chip { width: 82px; top: -20px; left: -12px; }
   .mascot-card__hint { display: none; }
   .sticker--d { left: 2%; bottom: -18px; }
