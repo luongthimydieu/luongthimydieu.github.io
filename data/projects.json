@@ -9,7 +9,13 @@
       "以 DSH 插件形式静态加载，随 Harness 启动自动恢复主题，无需手动激活",
       "MIT 开源；改 theme.css 后刷新页面即可看到变化，另附 Base64 内联壁纸版本"
     ],
-    "tech": ["CSS", "JavaScript", "Node.js", "DSH Plugin", "Cordis"],
+    "tech": [
+      "CSS",
+      "JavaScript",
+      "Node.js",
+      "DSH Plugin",
+      "Cordis"
+    ],
     "category": "AI",
     "status": "DSH 插件 · MIT",
     "stars": 0,
@@ -31,7 +37,14 @@
       "桌面端（Python / PyQt6 / SMTC）与手机端 PWA 通过私密 GitHub Gist 同步待办",
       "README 记录的自测结果：Python 单元测试 63 项、前端同步协议测试 24 项通过"
     ],
-    "tech": ["Python", "PyQt6", "Win32 API", "SMTC", "JavaScript", "GitHub Gist"],
+    "tech": [
+      "Python",
+      "PyQt6",
+      "Win32 API",
+      "SMTC",
+      "JavaScript",
+      "GitHub Gist"
+    ],
     "category": "桌面",
     "status": "v1.2.9 · 免安装版",
     "stars": 0,
@@ -53,7 +66,13 @@
       "用 GitHub 私密 Gist 当云数据库，Token 只存在本机浏览器的 localStorage",
       "同步协议 v2 带删除墓碑，避免已删待办被旧数据带回；跨天规则在本地计算"
     ],
-    "tech": ["HTML", "JavaScript", "Service Worker", "PWA", "GitHub Gist"],
+    "tech": [
+      "HTML",
+      "JavaScript",
+      "Service Worker",
+      "PWA",
+      "GitHub Gist"
+    ],
     "category": "桌面",
     "status": "PWA · 手机端",
     "stars": 0,
@@ -69,18 +88,25 @@
     "slug": "xxt-copilot",
     "name": "XXT Copilot",
     "tagline_zh": "只读采集学习通里已能看到的题目，在本机整理成复习资料。",
-    "description_zh": "一个 Edge / Chrome 扩展。它不答题、不交卷，只把你课程页里已经能看到的章节测验、作业和官方答案读下来，在扩展的控制台里逐题校对，再导出 Markdown、JSON、CSV 或打印视图。2026-10-18 通过 Microsoft Edge 认证上架，当前版本 v0.1.5。",
+    "description_zh": "一个 Edge / Chrome 扩展。它不答题、不交卷，只把你课程页里已经能看到的章节测验、作业和官方答案读下来，在扩展的控制台里逐题校对，再导出 Markdown、JSON、CSV 或打印视图。2026-10-18 通过 Microsoft Edge 与 Chrome 应用商店认证上架，当前版本 v0.1.5。",
     "highlights": [
       "不模拟点击翻页，直接读平台自己的任务点接口，再用多套解析器匹配题目页",
       "串行请求加随机延迟、超时重试；遇到验证码或登录失效会暂停并提示",
-      "本机处理、无服务器无遥测、无远程代码；已上架 Microsoft Edge 加载项商店"
+      "本机处理、无服务器无遥测、无远程代码；已上架 Microsoft Edge 加载项商店与 Chrome 应用商店"
     ],
-    "tech": ["JavaScript", "Manifest V3", "DOMParser", "chrome.storage", "Edge Add-ons"],
+    "tech": [
+      "JavaScript",
+      "Manifest V3",
+      "DOMParser",
+      "chrome.storage",
+      "Edge Add-ons",
+      "Chrome Web Store"
+    ],
     "category": "浏览器",
-    "status": "v0.1.5 · Edge 商店已上架",
+    "status": "v0.1.5 · Edge + Chrome 已上架",
     "stars": 0,
     "language": "JavaScript",
-    "updated": "2026-10-18",
+    "updated": "2026-10-19",
     "github": "https://github.com/luongthimydieu/xxt-copilot",
     "demo": "https://luongthimydieu.github.io/xxt-copilot/",
     "accent": "#6C8CFF",
@@ -97,7 +123,14 @@
       "MSP430 与 SX1276 子节点负责采集和能量管理，ESP32-S3 与 SX1302 网关跑 LoRaWAN",
       "云端 Python 加 XGBoost 做干旱预警，配微信小程序可视化；以 MIT 协议开源"
     ],
-    "tech": ["ESP32-S3", "MSP430", "LoRaWAN", "XGBoost", "Python", "微信小程序"],
+    "tech": [
+      "ESP32-S3",
+      "MSP430",
+      "LoRaWAN",
+      "XGBoost",
+      "Python",
+      "微信小程序"
+    ],
     "category": "硬件",
     "status": "国家级大创 · 方案阶段",
     "stars": 1,
@@ -119,7 +152,12 @@
       "遵循 OpenAI 风格的接口约定，换成其他模型后端主要改模型名与密钥",
       "支持多轮上下文和清空记忆，Python 3.8 以上可直接运行"
     ],
-    "tech": ["Python", "智谱 GLM-4-Flash", "LLM", "CLI"],
+    "tech": [
+      "Python",
+      "智谱 GLM-4-Flash",
+      "LLM",
+      "CLI"
+    ],
     "category": "AI",
     "status": "v1.0.0",
     "stars": 0,
@@ -141,7 +179,13 @@
       "纯 C++17 加标准库，CMake 构建，Windows、macOS、Linux 均可编译",
       "支持通配符批处理与统计报告，自动跳过错误行"
     ],
-    "tech": ["C++17", "CMake", "Makefile", "Shell", "Python"],
+    "tech": [
+      "C++17",
+      "CMake",
+      "Makefile",
+      "Shell",
+      "Python"
+    ],
     "category": "实验",
     "status": "v1.0 · 7 天完成",
     "stars": 0,
