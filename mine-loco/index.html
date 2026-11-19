@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mine-Loco Perception · 物理引导域适应的井下电机车智能感知</title>
+  <meta name="description" content="Physics-guided domain adaptation for underground mine locomotive perception and maintenance. Visibility-parameterized dust degradation, leakage-free evaluation, scale-up ablation, and a PySide6 demo system.">
+  <meta name="theme-color" content="#0b0f14">
+  <link rel="canonical" href="https://jinnn.xyz/mine-loco/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mine-Loco Perception">
+  <meta property="og:title" content="Mine-Loco Perception · Physics-Guided Domain Adaptation">
+  <meta property="og:description" content="Visibility-parameterized dust degradation, a leakage-free protocol, and a scale-up ablation for underground mine locomotive perception.">
+  <meta property="og:image" content="https://jinnn.xyz/mine-loco/assets/figures/architecture.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="#top">Mine-Loco <span>Perception</span></a>
+  <nav>
+    <a href="#overview">Overview</a>
+    <a href="#method">Method</a>
+    <a href="#results">Results</a>
+    <a href="#demo">Demo</a>
+    <a href="#reproduce">Reproduce</a>
+    <a class="gh" href="https://github.com/luongthimydieu/mine-loco-perception" target="_blank" rel="noopener">GitHub ↗</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Challenge Cup · Technology Invention B · 2026</p>
+    <h1>Physics-Guided Domain Adaptation for<br><em>Underground Mine Locomotive Perception</em></h1>
+    <p class="sub">基于物理引导域适应的井下电机车智能感知与运维系统</p>
+    <p class="authors">Li Kerui · Wang Zhiwen · Yang Moran · Jin Zikuan · Qi Gaoyang · Xia Yuhan · Liu Yixuan<br>
+      China University of Mining and Technology · Advisors: Prof. Xia Zhanguo, Sr. Eng. Chen Yiqiang</p>
+    <div class="actions">
+      <a class="btn primary" href="#results">Key results</a>
+      <a class="btn" href="#demo">Watch demo</a>
+      <a class="btn" href="#reproduce">Reproduce</a>
+    </div>
+    <p class="note">All dust conditions are <b>synthetically degraded</b> from ExDark (CC BY 4.0). This is a method/protocol study, not a mine-field accuracy claim.</p>
+  </div>
+  <figure class="hero-fig">
+    <img src="assets/figures/architecture.jpg" alt="System architecture">
+    <figcaption>Four subsystems: physics-guided perception, robust fusion, LiDAR boundary, health & RUL.</figcaption>
+  </figure>
+</section>
+
+<section id="overview" class="section">
+  <div class="section-head">
+    <p class="eyebrow">01 · Overview</p>
+    <h2>When the mine is blind, the data problem comes first</h2>
+  </div>
+  <div class="grid-3">
+    <article class="card"><h3>Physical boundary</h3><p>At V=30 m, contrast at 10 m falls to <b>36.8%</b>; at V=20 m, 6 m falls to <b>40.7%</b>. A single-line LiDAR has a geometric ceiling of <b>6.5 m</b> — the same order as braking distance.</p></article>
+    <article class="card"><h3>Data bottleneck</h3><p>No labeled mine data. We synthesize dust with the atmospheric scattering model <code>I = J·t + A(1−t)</code>, <code>t = exp(−βd)</code>, <code>β = 3/V</code>, using a monocular ground-plane depth map.</p></article>
+    <article class="card"><h3>Protocol first</h3><p>We found and fixed a leakage bug: the original validation set and dust evaluation set were generated from the same split and seed. After correction, the original <b>+3.89 pp</b> gain did not reproduce (0/8 comparisons).</p></article>
+  </div>
+</section>
+
+<section id="method" class="section">
+  <div class="section-head">
+    <p class="eyebrow">02 · Method</p>
+    <h2>Visibility is the control variable</h2>
+  </div>
+  <div class="method-grid">
+    <div>
+      <p>Instead of an abstract extinction coefficient, we parameterize dust by <b>visibility V</b>, a quantity a mine can measure and write into operating rules. The Koschmieder relation gives <code>β = 3/V</code>; per-pixel depth from a ground-plane projection gives a depth-structured transmission map.</p>
+      <p>The same model generates three training conditions and three evaluation sets with <b>disjoint seeds</b>: calibration (368 images), clean evaluation (368), and dust V=20/V=10 (368 each). This “three-way split” is the core of the corrected protocol.</p>
+      <p>Four models share everything except the offline degradation of the training set: <code>M_clean</code>, <code>M_phys</code>, <code>M_noise</code> (global gray aligned, no depth structure), and <code>M_hsv</code> (photometric only).</p>
+    </div>
+    <div class="calculator card">
+      <h3>Visibility calculator</h3>
+      <label>Visibility V <output id="vOut">20 m</output>
+        <input id="vRange" type="range" min="5" max="100" value="20" step="1">
+      </label>
+      <label>Distance d <output id="dOut">6 m</output>
+        <input id="dRange" type="range" min="1" max="30" value="6" step="1">
+      </label>
+      <div class="metric"><span>Contrast retention</span><b id="retOut">40.7%</b></div>
+      <div class="bar"><i id="retBar" style="width:40.7%"></i></div>
+      <div class="metric small"><span>β = 3/V</span><b id="betaOut">0.150 /m</b></div>
+      <div class="metric small"><span>LiDAR reliable range</span><b id="lidarOut">6.55 m</b></div>
+      <p class="hint">R = ln(1/I<sub>thr</sub>)/(2β), I<sub>thr</sub>=0.14. Single-line, double-pass extinction.</p>
+    </div>
+  </div>
+  <figure class="wide">
+    <img src="assets/figures/degradation.jpg" alt="Synthetic dust degradation at different visibility levels">
+    <figcaption>One ExDark scene under the physical degradation model: no dust, V=100/50/30/20/10 m. The same generator is used for training and evaluation with disjoint seeds.</figcaption>
+  </figure>
+</section>
+
+<section id="results" class="section">
+  <div class="section-head">
+    <p class="eyebrow">03 · Results</p>
+    <h2>Scale changes the conclusion — and the ablation explains why</h2>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>+10.9<span>pp</span></b><small>M_phys vs M_clean · V=20 m · last</small></div>
+    <div class="stat"><b>+9.9<span>pp</span></b><small>mean gain across V=30–10 m</small></div>
+    <div class="stat"><b>0/8</b><small>original gain reproduced under the corrected protocol</small></div>
+    <div class="stat"><b>109<span>FPS</span></b><small>M_phys 640 px · RTX 5060 Laptop</small></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>mAP@0.5 (%) on 368-image independent evaluation sets · 5000 images / 640 px / 80 epochs</caption>
+      <thead><tr><th>Evaluation</th><th>M_clean</th><th>M_phys</th><th>M_noise</th><th>M_hsv</th><th>Δ phys−clean</th></tr></thead>
+      <tbody>
+        <tr><td>Clean</td><td>61.81</td><td>42.61</td><td>42.70</td><td>55.46</td><td class="neg">−19.20</td></tr>
+        <tr><td>V=30 m</td><td>23.04</td><td><b>32.96</b></td><td>20.35</td><td>22.67</td><td class="pos">+9.92</td></tr>
+        <tr><td>V=20 m</td><td>22.09</td><td><b>32.24</b></td><td>18.76</td><td>21.65</td><td class="pos">+10.15</td></tr>
+        <tr><td>V=15 m</td><td>21.06</td><td><b>30.61</b></td><td>19.25</td><td>19.86</td><td class="pos">+9.55</td></tr>
+        <tr><td>V=10 m</td><td>17.96</td><td><b>26.85</b></td><td>18.20</td><td>16.35</td><td class="pos">+8.89</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="figs-2">
+    <figure><img src="assets/figures/visibility_curve.jpg" alt="Visibility curve"><figcaption>Visibility curve: the gain holds from V=30 m to V=10 m; M_noise/M_hsv show no consistent gain.</figcaption></figure>
+    <figure><img src="assets/figures/tta_soup.jpg" alt="TTA and model soup"><figcaption>Deployment: TTA improves M_phys on all three domains; model soup halves the clean-domain cost.</figcaption></figure>
+  </div>
+
+  <div class="callout">
+    <b>Why it matters:</b> the gain is not “more augmentation is better”. An equal-gray-level noise augmentation (<code>M_noise</code>) and a photometric-only augmentation (<code>M_hsv</code>) do <i>not</i> gain. The depth-structured scattering is the active ingredient.
+  </div>
+</section>
+
+<section id="demo" class="section">
+  <div class="section-head">
+    <p class="eyebrow">04 · Demo</p>
+    <h2>Six-page desktop system, real-time inference</h2>
+  </div>
+  <div class="demo-grid">
+    <video controls preload="metadata" poster="assets/demo_poster.jpg">
+      <source src="assets/demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="shots">
+      <img src="assets/figures/system_dashboard.jpg" alt="Dashboard">
+      <img src="assets/figures/system_perception.jpg" alt="Perception page">
+      <img src="assets/figures/system_health.jpg" alt="Health page">
+    </div>
+  </div>
+  <p class="note">PySide6 · 30 Hz fusion · model switch (M_clean / M_phys) · TTA toggle · CSV export · history replay.</p>
+</section>
+
+<section id="reproduce" class="section">
+  <div class="section-head">
+    <p class="eyebrow">05 · Reproduce</p>
+    <h2>From an empty clone to the figures above</h2>
+  </div>
+  <pre class="code"><code>git clone https://github.com/&lt;your-org&gt;/mine-loco-perception.git
+cd mine-loco-perception
+pip install -e ".[full]"
+
+# ExDark (CC BY 4.0) → data/exdark/data
+python scripts/download_exdark.py
+
+# Unit tests (18)
+pytest -q
+
+# System demo
+python -m mine_loco_system.main
+
+# Simulation reproduction (E2/E3/E4)
+python scripts/rerun_e2_offset.py
+python scripts/rerun_e3_lidar.py
+python scripts/rerun_e4_lifetime.py
+python scripts/sensitivity_check.py
+python scripts/redraw_figs.py
+
+# Extended evaluation (V=30/15, TTA, model soup)
+python scripts/eval_extension.py</code></pre>
+  <p class="note">Trained checkpoints are not committed. Place <code>yolov8n.pt</code> in <code>weights/</code>, or train with <code>scripts/exp_scaleup_ablation.py</code>; the system searches for checkpoints in <code>weights/</code> and <code>outputs/results/</code>.</p>
+</section>
+
+<section class="section citation">
+  <div class="section-head">
+    <p class="eyebrow">06 · Citation</p>
+    <h2>If this work helps you</h2>
+  </div>
+  <pre class="code"><code>@software{mine_loco_perception_2026,
+  title  = {Mine-Loco Perception: Physics-Guided Domain Adaptation for
+            Underground Mine Locomotive Perception and Maintenance},
+  author = {Li, Kerui and Wang, Zhiwen and Yang, Moran and Jin, Zikuan and
+            Qi, Gaoyang and Xia, Yuhan and Liu, Yixuan},
+  year   = {2026},
+  url    = {https://github.com/&lt;your-org&gt;/mine-loco-perception}
+}</code></pre>
+</section>
+</main>
+
+<footer>
+  <p>© 2026 Mine-Loco Perception contributors · MIT License · Code only; competition documents and personal data are not included.</p>
+  <p>ExDark dataset © its authors, CC BY 4.0. Dust degradation is synthetic. Built for research and education.</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
