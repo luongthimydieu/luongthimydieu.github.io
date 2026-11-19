@@ -6,13 +6,39 @@
   <title>Mine-Loco Perception · 物理引导域适应的井下电机车智能感知</title>
   <meta name="description" content="Physics-guided domain adaptation for underground mine locomotive perception and maintenance. Visibility-parameterized dust degradation, leakage-free evaluation, scale-up ablation, and a PySide6 demo system.">
   <meta name="theme-color" content="#0b0f14">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="assets/figures/architecture.jpg">
   <link rel="canonical" href="https://jinnn.xyz/mine-loco/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Mine-Loco Perception">
   <meta property="og:title" content="Mine-Loco Perception · Physics-Guided Domain Adaptation">
   <meta property="og:description" content="Visibility-parameterized dust degradation, a leakage-free protocol, and a scale-up ablation for underground mine locomotive perception.">
-  <meta property="og:image" content="https://jinnn.xyz/mine-loco/assets/figures/architecture.jpg">
+  <meta property="og:image" content="https://jinnn.xyz/mine-loco/assets/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://jinnn.xyz/mine-loco/assets/og-cover.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "Mine-Loco Perception",
+    "description": "Physics-guided domain adaptation for underground mine locomotive perception and maintenance.",
+    "codeRepository": "https://github.com/luongthimydieu/mine-loco-perception",
+    "license": "https://opensource.org/licenses/MIT",
+    "programmingLanguage": "Python",
+    "url": "https://jinnn.xyz/mine-loco/",
+    "author": [
+      {"@type": "Person", "name": "Li Kerui"},
+      {"@type": "Person", "name": "Wang Zhiwen"},
+      {"@type": "Person", "name": "Yang Moran"},
+      {"@type": "Person", "name": "Jin Zikuan"},
+      {"@type": "Person", "name": "Qi Gaoyang"},
+      {"@type": "Person", "name": "Xia Yuhan"},
+      {"@type": "Person", "name": "Liu Yixuan"}
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -44,7 +70,7 @@
     <p class="note">All dust conditions are <b>synthetically degraded</b> from ExDark (CC BY 4.0). This is a method/protocol study, not a mine-field accuracy claim.</p>
   </div>
   <figure class="hero-fig">
-    <img src="assets/figures/architecture.jpg" alt="System architecture">
+    <img src="assets/figures/architecture.jpg" alt="System architecture" fetchpriority="high">
     <figcaption>Four subsystems: physics-guided perception, robust fusion, LiDAR boundary, health & RUL.</figcaption>
   </figure>
 </section>
@@ -88,7 +114,7 @@
     </div>
   </div>
   <figure class="wide">
-    <img src="assets/figures/degradation.jpg" alt="Synthetic dust degradation at different visibility levels">
+    <img src="assets/figures/degradation.jpg" alt="Synthetic dust degradation at different visibility levels" loading="lazy" decoding="async">
     <figcaption>One ExDark scene under the physical degradation model: no dust, V=100/50/30/20/10 m. The same generator is used for training and evaluation with disjoint seeds.</figcaption>
   </figure>
 </section>
@@ -120,12 +146,20 @@
   </div>
 
   <div class="figs-2">
-    <figure><img src="assets/figures/visibility_curve.jpg" alt="Visibility curve"><figcaption>Visibility curve: the gain holds from V=30 m to V=10 m; M_noise/M_hsv show no consistent gain.</figcaption></figure>
-    <figure><img src="assets/figures/tta_soup.jpg" alt="TTA and model soup"><figcaption>Deployment: TTA improves M_phys on all three domains; model soup halves the clean-domain cost.</figcaption></figure>
+    <figure><img src="assets/figures/visibility_curve.jpg" alt="Visibility curve" loading="lazy" decoding="async"><figcaption>Visibility curve: the gain holds from V=30 m to V=10 m; M_noise/M_hsv show no consistent gain.</figcaption></figure>
+    <figure><img src="assets/figures/tta_soup.jpg" alt="TTA and model soup" loading="lazy" decoding="async"><figcaption>Deployment: TTA improves M_phys on all three domains; model soup halves the clean-domain cost.</figcaption></figure>
   </div>
+
+  <figure class="wide">
+    <img src="assets/figures/per_class.jpg" alt="Per-class AP at V=20 m" loading="lazy" decoding="async">
+    <figcaption>Per-class AP@0.5 at V=20 m. Small/thin objects gain the most (Bottle +27.3, Cup +12.9); Bicycle is the only class with a small drop (−3.1).</figcaption>
+  </figure>
 
   <div class="callout">
     <b>Why it matters:</b> the gain is not “more augmentation is better”. An equal-gray-level noise augmentation (<code>M_noise</code>) and a photometric-only augmentation (<code>M_hsv</code>) do <i>not</i> gain. The depth-structured scattering is the active ingredient.
+  </div>
+  <div class="callout">
+    <b>Operating point:</b> <code>M_phys</code> keeps its F1 peak at confidence <b>0.25</b> across clean, V=20 and V=10 (F1 36.49 at V=20). <code>M_clean</code> needs 0.10–0.15 in dust to recover recall — a practical reason to prefer the physics-guided model beyond mAP.
   </div>
 </section>
 
@@ -140,9 +174,9 @@
       Your browser does not support the video tag.
     </video>
     <div class="shots">
-      <img src="assets/figures/system_dashboard.jpg" alt="Dashboard">
-      <img src="assets/figures/system_perception.jpg" alt="Perception page">
-      <img src="assets/figures/system_health.jpg" alt="Health page">
+      <img src="assets/figures/system_dashboard.jpg" alt="Dashboard" loading="lazy" decoding="async">
+      <img src="assets/figures/system_perception.jpg" alt="Perception page" loading="lazy" decoding="async">
+      <img src="assets/figures/system_health.jpg" alt="Health page" loading="lazy" decoding="async">
     </div>
   </div>
   <p class="note">PySide6 · 30 Hz fusion · model switch (M_clean / M_phys) · TTA toggle · CSV export · history replay.</p>
@@ -176,6 +210,7 @@ python scripts/redraw_figs.py
 # Extended evaluation (V=30/15, TTA, model soup)
 python scripts/eval_extension.py</code></pre>
   <p class="note">Trained checkpoints are not committed. Place <code>yolov8n.pt</code> in <code>weights/</code>, or train with <code>scripts/exp_scaleup_ablation.py</code>; the system searches for checkpoints in <code>weights/</code> and <code>outputs/results/</code>.</p>
+  <p class="note">Full write-up: <a href="https://github.com/luongthimydieu/mine-loco-perception/blob/main/docs/technical-report.md">technical report</a> · <a href="https://github.com/luongthimydieu/mine-loco-perception/blob/main/docs/results.md">all result tables</a></p>
 </section>
 
 <section class="section citation">
